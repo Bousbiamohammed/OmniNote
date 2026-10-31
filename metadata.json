@@ -1,0 +1,6 @@
+{
+  "name": "OmniNote",
+  "description": "All-in-one offline markdown knowledge base fusing Google Keep cards & checklists, Notion blocks & icons, and Obsidian bidirectional links & interactive graph visualization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

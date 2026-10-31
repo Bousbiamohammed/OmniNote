@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidNote(data) {
+      return data.userId is string && data.userId == request.auth.uid &&
+             data.title is string && data.title.size() <= 200 &&
+             data.content is string && data.content.size() <= 100000 &&
+             data.emoji is string && data.emoji.size() <= 10 &&
+             data.colorHex is string && data.colorHex.size() <= 30 &&
+             (!('bannerColor' in data) || data.bannerColor == null || (data.bannerColor is string && data.bannerColor.size() <= 30)) &&
+             data.isPinned is bool &&
+             data.isArchived is bool &&
+             data.isTrashed is bool &&
+             data.tags is string && data.tags.size() <= 500 &&
+             data.folder is string && data.folder.size() <= 100;
+    }
+
+    match /users/{userId}/notes/{noteId} {
+      allow get, list: if isSignedIn() && request.auth.uid == userId;
+
+      allow create: if isSignedIn() &&
+                       request.auth.uid == userId &&
+                       isValidId(noteId) &&
+                       incoming().userId == request.auth.uid &&
+                       incoming().keys().hasAll(['userId', 'title', 'content', 'emoji', 'colorHex', 'isPinned', 'isArchived', 'isTrashed', 'tags', 'folder', 'createdAt']) &&
+                       incoming().keys().hasOnly(['userId', 'title', 'content', 'emoji', 'colorHex', 'bannerColor', 'isPinned', 'isArchived', 'isTrashed', 'tags', 'folder', 'createdAt', 'updatedAt']) &&
+                       incoming().createdAt is timestamp &&
+                       incoming().createdAt <= request.time &&
+                       (!('updatedAt' in incoming()) || (incoming().updatedAt is timestamp && incoming().updatedAt <= request.time)) &&
+                       isValidNote(incoming());
+
+      allow update: if isSignedIn() &&
+                       request.auth.uid == userId &&
+                       isValidId(noteId) &&
+                       incoming().userId == existing().userId &&
+                       incoming().createdAt == existing().createdAt &&
+                       isValidNote(incoming()) &&
+                       incoming().diff(existing()).affectedKeys().hasOnly(['title', 'content', 'emoji', 'colorHex', 'bannerColor', 'isPinned', 'isArchived', 'isTrashed', 'tags', 'folder', 'updatedAt']);
+
+      allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(noteId);
+    }
+  }
+}

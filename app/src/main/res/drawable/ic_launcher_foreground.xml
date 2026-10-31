@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Main Note Body with folded top-right corner -->
+    <path
+        android:pathData="M34,26 C31.8,26 30,27.8 30,30 L30,78 C30,80.2 31.8,82 34,82 L74,82 C76.2,82 78,80.2 78,78 L78,42 L62,26 Z"
+        android:fillColor="#F8FAFC" />
+    <!-- Folded corner tab -->
+    <path
+        android:pathData="M62,26 L78,42 L64,42 C62.9,42 62,41.1 62,40 Z"
+        android:fillColor="#94A3B8" />
+    
+    <!-- Markdown Header Symbol (H / #) in Cyan -->
+    <path
+        android:pathData="M38,36 L43,36 L43,48 L38,48 Z M49,36 L54,36 L54,48 L49,48 Z M38,40.5 L54,40.5 L54,43.5 L38,43.5 Z"
+        android:fillColor="#0284C7" />
+
+    <!-- Checkbox item (Google Keep style) -->
+    <path
+        android:pathData="M38,54 L44,54 C44.5,54 45,54.5 45,55 L45,61 C45,61.5 44.5,62 44,62 L38,62 C37.5,62 37,61.5 37,61 L37,55 C37,54.5 37.5,54 38,54 Z"
+        android:fillColor="#10B981" />
+    <path
+        android:pathData="M39.5,58 L41,59.5 L43.5,56"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- Note line next to checkbox -->
+    <path
+        android:pathData="M48,58 L68,58"
+        android:strokeColor="#64748B"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+
+    <!-- Obsidian Graph Link Nodes -->
+    <!-- Line linking two nodes -->
+    <path
+        android:pathData="M40,71 L56,67 L68,73"
+        android:strokeColor="#F59E0B"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+    <!-- Synapse node 1 -->
+    <path
+        android:pathData="M40,71 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#F59E0B" />
+    <!-- Synapse node 2 (center) -->
+    <path
+        android:pathData="M56,67 m-3.5,0 a3.5,3.5 0 1,0 7,0 a3.5,3.5 0 1,0 -7,0"
+        android:fillColor="#38BDF8" />
+    <!-- Synapse node 3 -->
+    <path
+        android:pathData="M68,73 m-2.8,0 a2.8,2.8 0 1,0 5.6,0 a2.8,2.8 0 1,0 -5.6,0"
+        android:fillColor="#A855F7" />
+</vector>

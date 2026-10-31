@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "Note": {
+      "title": "Note",
+      "description": "Represents a user's markdown note synchronized between devices.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the note owner."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the note."
+        },
+        "content": {
+          "type": "string",
+          "description": "Markdown body content of the note."
+        },
+        "emoji": {
+          "type": "string",
+          "description": "Icon or emoji representation for the note."
+        },
+        "colorHex": {
+          "type": "string",
+          "description": "Color theme hex code."
+        },
+        "bannerColor": {
+          "type": "string",
+          "description": "Optional top banner color hex code."
+        },
+        "isPinned": {
+          "type": "boolean",
+          "description": "Whether the note is pinned to top."
+        },
+        "isArchived": {
+          "type": "boolean",
+          "description": "Whether the note is archived."
+        },
+        "isTrashed": {
+          "type": "boolean",
+          "description": "Whether the note is moved to trash."
+        },
+        "tags": {
+          "type": "string",
+          "description": "Comma-separated tag list."
+        },
+        "folder": {
+          "type": "string",
+          "description": "Folder or vault category."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp via serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated timestamp via serverTimestamp()."
+        }
+      },
+      "required": ["userId", "title", "content", "emoji", "colorHex", "isPinned", "isArchived", "isTrashed", "tags", "folder", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/notes/{noteId}": {
+      "schema": "#/entities/Note",
+      "description": "Private collection of notes created and managed by the authenticated user."
+    }
+  }
+}
